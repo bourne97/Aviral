@@ -1,0 +1,56 @@
+Anagrams
+
+vector<vector<int> > Solution::anagrams(const vector<string> &A) {
+    vector<vector<int>> ans;
+    unordered_map<string,vector<int>> m;
+    for(int i=0;i<A.size();i++)
+    {
+        string s=A[i];
+        sort(s.begin(),s.end());
+        m[s].push_back(i+1);
+    }
+    for(auto it:m)
+    {
+        ans.push_back(it.second);
+    }
+    return ans;
+}
+
+
+
+3 Sum
+
+int Solution::threeSumClosest(vector<int> &A, int B) {
+    sort(A.begin(),A.end());
+    int n=A.size();
+    int l=0,r=0;
+    int sum1=0;
+    int dif=0;
+    int mindif=INT_MAX;
+    int sum2=A[0]+A[1]+A[2];
+    mindif=abs(sum2-B);
+    for(int i=0;i<n-2;i++)
+    {
+        l=i+1;
+        r=n-1;
+        while(l<r)
+        {
+            sum1=A[i]+A[l]+A[r];
+            dif=abs(sum1-B);
+            
+            if(dif==0)
+            return sum1;
+            
+            if(dif<mindif)
+            {
+                mindif=dif;
+                sum2=sum1;
+            }
+            if(sum1-B>0)
+            r--;
+            else
+            l++;
+        }
+    }
+    return sum2;
+}
